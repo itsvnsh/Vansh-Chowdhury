@@ -1,0 +1,43 @@
+import sys
+def get_float(prompt):
+    while True:
+        try:
+            return float(input(prompt).strip())
+        except Exception:
+            print("Invalid number, try again.")
+def main():
+    try:
+        income=get_float("Enter total income: ")
+        expenses=[]
+        print("Enter expenses one per line (empty line to finish):")
+        while True:
+            s=input().strip()
+            if s=="":
+                break
+            try:
+                expenses.append(float(s))
+            except Exception:
+                print("Invalid expense ignored")
+        total_expense=sum(expenses)
+        savings=income-total_expense
+        percent_spent=0 if income==0 else (total_expense/income)*100
+        if percent_spent<=50:
+            category="LOW"
+            msg="Good control!"
+        elif percent_spent<=80:
+            category="MODERATE"
+            msg="Be careful!"
+        else:
+            category="HIGH"
+            msg="Financial Risk!"
+        print(f"Income: {income:.2f}")
+        print(f"Total Expenses: {total_expense:.2f}")
+        print(f"Savings: {savings:.2f}")
+        print(f"Percentage Spent: {percent_spent:.2f}%")
+        print(f"Spending Category: {category}")
+        print(f"Suggestion: {msg}")
+    except Exception as e:
+        print("An error occurred:", e)
+        sys.exit(1)
+if __name__=="__main__":
+    main()
